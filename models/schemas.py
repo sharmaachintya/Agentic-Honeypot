@@ -1,45 +1,39 @@
 """
 Pydantic models for API request/response schemas
+Flexible version - accepts various input formats
 """
 from pydantic import BaseModel, Field
-from typing import Optional, List
+from typing import Optional, List, Any
 from datetime import datetime
-from enum import Enum
 
 
-class SenderType(str, Enum):
-    SCAMMER = "scammer"
-    USER = "user"
-
-
-class ChannelType(str, Enum):
-    SMS = "SMS"
-    WHATSAPP = "WhatsApp"
-    EMAIL = "Email"
-    CHAT = "Chat"
-
-
-# ============== REQUEST MODELS ==============
+# ============== REQUEST MODELS (FLEXIBLE) ==============
 
 class Message(BaseModel):
-    """Individual message in conversation"""
-    sender: SenderType
+    """Individual message in conversation - flexible validation"""
+    sender: str  # Accept any string: "scammer", "user", etc.
     text: str
-    timestamp: str  # ISO-8601 format
+    timestamp: Optional[str] = None  # Make timestamp optional
+
+    class Config:
+        extra = "ignore"  # Ignore extra fields
 
 
 class Metadata(BaseModel):
-    """Optional metadata about the message"""
-    channel: Optional[ChannelType] = ChannelType.SMS
+    """Optional metadata about the message - flexible"""
+    channel: Optional[str] = "SMS"  # Accept any string
     language: Optional[str] = "English"
     locale: Optional[str] = "IN"
 
+    class Config:
+        extra = "ignore"
+
 
 class IncomingMessageRequest(BaseModel):
-    """Main API request model for incoming messages"""
+    """Main API request model for incoming messages - flexible"""
     sessionId: str = Field(..., description="Unique session identifier")
     message: Message = Field(..., description="The latest incoming message")
-    conversationHistory: List[Message] = Field(
+    conversationHistory: Optional[List[Message]] = Field(
         default=[], 
         description="Previous messages in the conversation"
     )
@@ -47,6 +41,9 @@ class IncomingMessageRequest(BaseModel):
         default=None,
         description="Optional metadata about the channel"
     )
+
+    class Config:
+        extra = "ignore"  # Ignore any extra fields GUVI might send
 
 
 # ============== RESPONSE MODELS ==============
@@ -93,7 +90,7 @@ class SessionData(BaseModel):
     scam_confidence: float = 0.0
     agent_activated: bool = False
     messages_exchanged: int = 0
-    conversation_history: List[Message] = Field(default_factory=list)
+    conversation_history: List[dict] = Field(default_factory=list)
     extracted_intelligence: ExtractedIntelligence = Field(
         default_factory=ExtractedIntelligence
     )

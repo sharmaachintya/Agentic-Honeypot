@@ -128,8 +128,8 @@ async def process_message(
     try:
         session_id = request.sessionId
         message_text = request.message.text
-        sender = str(request.message.sender.value)
-        timestamp = request.message.timestamp
+        sender = request.message.sender  # Now a string, not enum
+        timestamp = request.message.timestamp or datetime.utcnow().isoformat()
         
         logger.info(f"📩 Received message for session: {session_id}")
         logger.info(f"Message from {sender}: {message_text[:100]}...")
@@ -146,15 +146,15 @@ async def process_message(
                 # Check if message already exists to avoid duplicates
                 existing = session['conversation_history']
                 msg_exists = any(
-                    m['text'] == hist_msg.text and m['sender'] == str(hist_msg.sender.value)
+                    m['text'] == hist_msg.text and m['sender'] == hist_msg.sender
                     for m in existing
                 )
                 if not msg_exists:
                     session_manager.add_message(
                         session_id,
-                        str(hist_msg.sender.value),
+                        hist_msg.sender,  # Now a string
                         hist_msg.text,
-                        hist_msg.timestamp
+                        hist_msg.timestamp or datetime.utcnow().isoformat()
                     )
         
         # Refresh session after updates
@@ -202,7 +202,7 @@ async def process_message(
                 metadata = {}
                 if request.metadata:
                     metadata = {
-                        'channel': str(request.metadata.channel.value) if request.metadata.channel else 'SMS',
+                        'channel': request.metadata.channel or 'SMS',  # Now a string
                         'language': request.metadata.language or 'English',
                         'locale': request.metadata.locale or 'IN'
                     }
