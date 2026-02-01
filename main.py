@@ -110,26 +110,32 @@ app.add_middleware(
 
 # ============== MAIN API ENDPOINTS ==============
 
-@app.post("/api/message", response_model=AgentResponse)
+@app.post("/api/message")
 async def process_message(
-    request: IncomingMessageRequest,
-    api_key: str = Depends(verify_api_key)
+    request: Request,
+    x_api_key: str = Header(None)
 ):
     """
     Main endpoint to receive and process incoming messages.
-    
-    This endpoint:
-    1. Analyzes the message for scam intent
-    2. If scam detected, activates the AI agent
-    3. Agent generates a response to engage the scammer
-    4. Extracts intelligence from the conversation
-    5. Returns a structured response
+    Accepts RAW JSON to avoid validation issues.
     """
+    # Verify API key
+    if x_api_key and x_api_key != API_SECRET_KEY:
+        raise HTTPException(status_code=403, detail="Invalid API key")
+    
     try:
-        session_id = request.sessionId
-        message_text = request.message.text
-        sender = request.message.sender  # Now a string, not enum
-        timestamp = request.message.timestamp or datetime.utcnow().isoformat()
+        # Parse raw JSON body
+        body = await request.json()
+        logger.info(f"📥 Raw request body: {body}")
+        
+        # Extract fields with safe defaults
+        session_id = body.get('sessionId', body.get('session_id', 'unknown-session'))
+        message = body.get('message', {})
+        message_text = message.get('text', '') if isinstance(message, dict) else str(message)
+        sender = message.get('sender', 'scammer') if isinstance(message, dict) else 'scammer'
+        timestamp = message.get('timestamp', datetime.utcnow().isoformat()) if isinstance(message, dict) else datetime.utcnow().isoformat()
+        conversation_history = body.get('conversationHistory', body.get('conversation_history', []))
+        metadata = body.get('metadata', {})
         
         logger.info(f"📩 Received message for session: {session_id}")
         logger.info(f"Message from {sender}: {message_text[:100]}...")
@@ -141,21 +147,24 @@ async def process_message(
         session_manager.add_message(session_id, sender, message_text, timestamp)
         
         # Also add conversation history from request if provided
-        if request.conversationHistory:
-            for hist_msg in request.conversationHistory:
-                # Check if message already exists to avoid duplicates
-                existing = session['conversation_history']
-                msg_exists = any(
-                    m['text'] == hist_msg.text and m['sender'] == hist_msg.sender
-                    for m in existing
-                )
-                if not msg_exists:
-                    session_manager.add_message(
-                        session_id,
-                        hist_msg.sender,  # Now a string
-                        hist_msg.text,
-                        hist_msg.timestamp or datetime.utcnow().isoformat()
+        if conversation_history:
+            for hist_msg in conversation_history:
+                if isinstance(hist_msg, dict):
+                    # Check if message already exists to avoid duplicates
+                    existing = session['conversation_history']
+                    hist_text = hist_msg.get('text', '')
+                    hist_sender = hist_msg.get('sender', 'unknown')
+                    msg_exists = any(
+                        m['text'] == hist_text and m['sender'] == hist_sender
+                        for m in existing
                     )
+                    if not msg_exists:
+                        session_manager.add_message(
+                            session_id,
+                            hist_sender,
+                            hist_text,
+                            hist_msg.get('timestamp', datetime.utcnow().isoformat())
+                        )
         
         # Refresh session after updates
         session = session_manager.get_session(session_id)
@@ -198,21 +207,19 @@ async def process_message(
             try:
                 agent = get_honeypot_agent()
                 
-                # Prepare metadata
-                metadata = {}
-                if request.metadata:
-                    metadata = {
-                        'channel': request.metadata.channel or 'SMS',  # Now a string
-                        'language': request.metadata.language or 'English',
-                        'locale': request.metadata.locale or 'IN'
-                    }
+                # Prepare metadata (use the metadata from body)
+                agent_metadata = {
+                    'channel': metadata.get('channel', 'SMS') if isinstance(metadata, dict) else 'SMS',
+                    'language': metadata.get('language', 'English') if isinstance(metadata, dict) else 'English',
+                    'locale': metadata.get('locale', 'IN') if isinstance(metadata, dict) else 'IN'
+                }
                 
                 # Generate response
                 agent_reply = agent.generate_response(
                     current_message=message_text,
                     conversation_history=session['conversation_history'][:-1],  # Exclude current
                     scam_category=session['scam_category'],
-                    metadata=metadata
+                    metadata=agent_metadata
                 )
                 
                 # Add agent's response to conversation
