@@ -302,7 +302,14 @@ class IntelligenceExtractor:
     
     def to_dict(self, data: ExtractedData) -> Dict:
         """
-        Convert ExtractedData to dictionary format for API response
+        Convert ExtractedData to dictionary format for API response.
+        Includes ALL fields needed for scoring:
+        - phoneNumbers (10 pts)
+        - bankAccounts (10 pts)
+        - upiIds (10 pts)
+        - phishingLinks (10 pts)
+        - emailAddresses (bonus)
+        - suspiciousKeywords (context)
         
         Args:
             data: ExtractedData object
@@ -315,6 +322,7 @@ class IntelligenceExtractor:
             'upiIds': list(data.upi_ids),
             'phishingLinks': list(data.phishing_links),
             'phoneNumbers': list(data.phone_numbers),
+            'emailAddresses': list(data.email_addresses),
             'suspiciousKeywords': list(data.suspicious_keywords),
         }
     

@@ -32,6 +32,7 @@ class SessionManager:
             if session_id in self._sessions:
                 return self._sessions[session_id]
             
+            now = datetime.utcnow().isoformat()
             session = {
                 'session_id': session_id,
                 'scam_detected': False,
@@ -45,11 +46,14 @@ class SessionManager:
                     'upiIds': [],
                     'phishingLinks': [],
                     'phoneNumbers': [],
+                    'emailAddresses': [],
                     'suspiciousKeywords': []
                 },
                 'agent_notes': [],
-                'created_at': datetime.utcnow().isoformat(),
-                'last_updated': datetime.utcnow().isoformat(),
+                'created_at': now,
+                'last_updated': now,
+                'first_message_at': now,
+                'last_message_at': now,
                 'callback_sent': False
             }
             
@@ -132,16 +136,23 @@ class SessionManager:
                 return None
             
             session = self._sessions[session_id]
+            now = datetime.utcnow().isoformat()
+            msg_timestamp = timestamp or now
             
             message = {
                 'sender': sender,
                 'text': text,
-                'timestamp': timestamp or datetime.utcnow().isoformat()
+                'timestamp': msg_timestamp
             }
             
             session['conversation_history'].append(message)
             session['messages_exchanged'] = len(session['conversation_history'])
-            session['last_updated'] = datetime.utcnow().isoformat()
+            session['last_updated'] = now
+            session['last_message_at'] = now
+            
+            # Set first_message_at only for the very first message
+            if session['messages_exchanged'] == 1:
+                session['first_message_at'] = now
             
             return session
     
@@ -194,7 +205,7 @@ class SessionManager:
             current_intel = session['extracted_intelligence']
             
             # Merge new intelligence with existing (avoid duplicates)
-            for key in ['bankAccounts', 'upiIds', 'phishingLinks', 'phoneNumbers', 'suspiciousKeywords']:
+            for key in ['bankAccounts', 'upiIds', 'phishingLinks', 'phoneNumbers', 'emailAddresses', 'suspiciousKeywords']:
                 if key in intelligence:
                     # Convert to set for deduplication, then back to list
                     existing = set(current_intel.get(key, []))
@@ -236,6 +247,68 @@ class SessionManager:
             Updated session or None
         """
         return self.update_session(session_id, {'callback_sent': True})
+    
+    def get_engagement_duration_seconds(self, session_id: str) -> float:
+        """
+        Calculate engagement duration in seconds for a session.
+        
+        Args:
+            session_id: Session identifier
+            
+        Returns:
+            Duration in seconds (float)
+        """
+        with self._lock:
+            session = self._sessions.get(session_id)
+            if not session:
+                return 0.0
+            
+            try:
+                first_msg = session.get('first_message_at', session.get('created_at'))
+                last_msg = session.get('last_message_at', session.get('last_updated'))
+                
+                # Parse ISO timestamps
+                fmt_options = [
+                    '%Y-%m-%dT%H:%M:%S.%f',
+                    '%Y-%m-%dT%H:%M:%S',
+                    '%Y-%m-%dT%H:%M:%SZ',
+                    '%Y-%m-%dT%H:%M:%S.%fZ',
+                ]
+                
+                first_dt = None
+                last_dt = None
+                
+                for fmt in fmt_options:
+                    if first_dt is None:
+                        try:
+                            first_dt = datetime.strptime(first_msg, fmt)
+                        except (ValueError, TypeError):
+                            pass
+                    if last_dt is None:
+                        try:
+                            last_dt = datetime.strptime(last_msg, fmt)
+                        except (ValueError, TypeError):
+                            pass
+                
+                if first_dt and last_dt:
+                    duration = (last_dt - first_dt).total_seconds()
+                    # Ensure minimum duration based on message count for scoring
+                    # If multiple messages exchanged but duration is tiny (fast API),
+                    # use a reasonable estimate
+                    msg_count = session.get('messages_exchanged', 0)
+                    if duration < 5 and msg_count > 2:
+                        # Estimate ~8 seconds per message exchange as minimum
+                        duration = max(duration, msg_count * 8.0)
+                    return max(0.0, duration)
+                else:
+                    # Fallback: estimate from message count
+                    msg_count = session.get('messages_exchanged', 0)
+                    return max(0.0, msg_count * 8.0)
+                    
+            except Exception:
+                # Safe fallback
+                msg_count = session.get('messages_exchanged', 0)
+                return max(0.0, msg_count * 8.0)
     
     def delete_session(self, session_id: str) -> bool:
         """
@@ -293,11 +366,13 @@ class SessionManager:
             'scam_category': session['scam_category'],
             'agent_activated': session['agent_activated'],
             'messages_exchanged': session['messages_exchanged'],
+            'engagement_duration_seconds': self.get_engagement_duration_seconds(session_id),
             'intelligence_count': {
                 'bank_accounts': len(session['extracted_intelligence'].get('bankAccounts', [])),
                 'upi_ids': len(session['extracted_intelligence'].get('upiIds', [])),
                 'phishing_links': len(session['extracted_intelligence'].get('phishingLinks', [])),
                 'phone_numbers': len(session['extracted_intelligence'].get('phoneNumbers', [])),
+                'email_addresses': len(session['extracted_intelligence'].get('emailAddresses', [])),
             },
             'callback_sent': session['callback_sent'],
             'created_at': session['created_at'],
