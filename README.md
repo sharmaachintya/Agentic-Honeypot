@@ -260,4 +260,4 @@ MIT License - Built for HCL GUVI Hackathon 2026
 
 ## 👤 Author
 
-Marco Polo - HCL GUVI Hackathon Participant
+Achintya Sharma & Sushant Nanda - HCL GUVI Hackathon Participants
