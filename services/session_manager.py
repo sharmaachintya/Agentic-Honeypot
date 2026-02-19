@@ -47,6 +47,9 @@ class SessionManager:
                     'phishingLinks': [],
                     'phoneNumbers': [],
                     'emailAddresses': [],
+                    'caseIds': [],
+                    'policyNumbers': [],
+                    'orderNumbers': [],
                     'suspiciousKeywords': []
                 },
                 'agent_notes': [],
@@ -205,7 +208,7 @@ class SessionManager:
             current_intel = session['extracted_intelligence']
             
             # Merge new intelligence with existing (avoid duplicates)
-            for key in ['bankAccounts', 'upiIds', 'phishingLinks', 'phoneNumbers', 'emailAddresses', 'suspiciousKeywords']:
+            for key in ['bankAccounts', 'upiIds', 'phishingLinks', 'phoneNumbers', 'emailAddresses', 'caseIds', 'policyNumbers', 'orderNumbers', 'suspiciousKeywords']:
                 if key in intelligence:
                     # Convert to set for deduplication, then back to list
                     existing = set(current_intel.get(key, []))

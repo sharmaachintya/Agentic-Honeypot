@@ -243,10 +243,11 @@ async def process_message(
                 # Re-extract intelligence after agent response (in case agent provoked new info)
                 session = session_manager.get_session(session_id)
                 
-                # Check if we should send callback
-                # Send callback when we have >= 5 messages for maximum engagement scoring
-                if callback_service.should_send_callback(session, min_messages=5, require_intelligence=False):
-                    logger.info("📤 Sending callback to GUVI...")
+                # Send callback on EVERY turn after threshold
+                # System waits only 10 seconds after conversation ends, so we update every turn
+                session = session_manager.get_session(session_id)
+                if session['scam_detected'] and session['messages_exchanged'] >= 3:
+                    logger.info("📤 Sending/updating callback to GUVI...")
                     
                     # Calculate engagement duration
                     engagement_duration = session_manager.get_engagement_duration_seconds(session_id)
@@ -254,18 +255,19 @@ async def process_message(
                     # Prepare agent notes
                     agent_notes = callback_service.prepare_agent_notes(session)
                     
-                    # Send callback with ALL scored fields
+                    # Send callback with ALL scored fields including scamType + confidenceLevel
                     callback_result = callback_service.send_final_result(
                         session_id=session_id,
                         scam_detected=session['scam_detected'],
                         total_messages=session['messages_exchanged'],
                         extracted_intelligence=session['extracted_intelligence'],
                         agent_notes=agent_notes,
-                        engagement_duration_seconds=engagement_duration
+                        engagement_duration_seconds=engagement_duration,
+                        scam_type=session.get('scam_category', 'GENERIC_SCAM'),
+                        confidence_level=session.get('scam_confidence', 0.5)
                     )
                     
                     if callback_result['success']:
-                        session_manager.mark_callback_sent(session_id)
                         logger.info("✅ Callback sent successfully")
                     else:
                         logger.warning(f"⚠️ Callback failed: {callback_result.get('message')}")

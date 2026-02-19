@@ -17,6 +17,9 @@ class ExtractedData:
     suspicious_keywords: Set[str] = field(default_factory=set)
     email_addresses: Set[str] = field(default_factory=set)
     names_mentioned: Set[str] = field(default_factory=set)
+    case_ids: Set[str] = field(default_factory=set)
+    policy_numbers: Set[str] = field(default_factory=set)
+    order_numbers: Set[str] = field(default_factory=set)
 
 
 class IntelligenceExtractor:
@@ -28,6 +31,23 @@ class IntelligenceExtractor:
     - Phone numbers
     - Suspicious keywords
     """
+    
+    # Patterns for Case IDs, Policy Numbers, Order Numbers
+    ID_PATTERNS = {
+        'case_id': [
+            r'\b(?:case|ref|reference|complaint|ticket|fir)[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
+            r'\b(?:case|ref|reference|complaint|ticket)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
+            r'\b[A-Z]{2,5}[-/]\d{4,12}\b',
+        ],
+        'policy_number': [
+            r'\b(?:policy|polic)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
+            r'\b(?:LIC|HDFC|ICICI|SBI|MAX|TATA)[\s-]?\d{6,15}\b',
+        ],
+        'order_number': [
+            r'\b(?:order|ord|transaction|txn|invoice)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
+            r'\b(?:ORD|TXN|INV|AMZ|FLK)[-]?\d{4,15}\b',
+        ],
+    }
     
     # Regex patterns for extraction
     PATTERNS = {
@@ -156,6 +176,21 @@ class IntelligenceExtractor:
             for match in matches:
                 data.email_addresses.add(match.lower())
         
+        # Extract Case IDs, Policy Numbers, Order Numbers
+        for id_type, patterns in self.ID_PATTERNS.items():
+            for pattern_str in patterns:
+                pattern = re.compile(pattern_str, re.IGNORECASE)
+                matches = pattern.findall(text)
+                for match in matches:
+                    clean_match = match.strip() if isinstance(match, str) else str(match).strip()
+                    if len(clean_match) >= 4:
+                        if id_type == 'case_id':
+                            data.case_ids.add(clean_match)
+                        elif id_type == 'policy_number':
+                            data.policy_numbers.add(clean_match)
+                        elif id_type == 'order_number':
+                            data.order_numbers.add(clean_match)
+        
         # Extract suspicious keywords
         text_lower = text.lower()
         for keyword in self.SUSPICIOUS_KEYWORDS:
@@ -197,6 +232,9 @@ class IntelligenceExtractor:
             combined.suspicious_keywords.update(extracted.suspicious_keywords)
             combined.email_addresses.update(extracted.email_addresses)
             combined.names_mentioned.update(extracted.names_mentioned)
+            combined.case_ids.update(extracted.case_ids)
+            combined.policy_numbers.update(extracted.policy_numbers)
+            combined.order_numbers.update(extracted.order_numbers)
         
         return combined
     
@@ -323,6 +361,9 @@ class IntelligenceExtractor:
             'phishingLinks': list(data.phishing_links),
             'phoneNumbers': list(data.phone_numbers),
             'emailAddresses': list(data.email_addresses),
+            'caseIds': list(data.case_ids),
+            'policyNumbers': list(data.policy_numbers),
+            'orderNumbers': list(data.order_numbers),
             'suspiciousKeywords': list(data.suspicious_keywords),
         }
     

@@ -1,263 +1,208 @@
-# 🍯 Agentic Honeypot API
+# Agentic Honeypot API
 
-AI-powered honeypot system for scam detection and intelligence extraction. Built for the HCL GUVI Hackathon.
+An AI-powered honeypot system that detects scam messages, engages scammers in realistic multi-turn conversations, and extracts actionable intelligence — all without revealing detection.
 
-## 🎯 Overview
+Built for the **India AI Impact Buildathon** by HCL × GUVI.
 
-This API detects scam messages (bank fraud, UPI fraud, phishing, fake offers) and autonomously engages scammers using an AI agent (Claude Sonnet 4) to extract useful intelligence without revealing detection.
+## Description
 
-## ✨ Features
+This system acts as an intelligent honeypot that:
+- **Detects** scam intent using pattern matching and keyword analysis across 15+ fraud categories
+- **Engages** scammers autonomously using Claude AI with a believable naive-victim persona
+- **Extracts** intelligence: phone numbers, bank accounts, UPI IDs, phishing links, emails, case IDs, policy numbers, order numbers
+- **Reports** structured results via callback API with full scoring compliance
 
-- **Scam Detection**: Pattern-based detection for various scam types (UPI fraud, bank fraud, phishing, KYC fraud, etc.)
-- **AI Agent**: Claude Sonnet 4 powered agent that maintains a believable human-like persona
-- **Intelligence Extraction**: Extracts bank accounts, UPI IDs, phone numbers, phishing links, and suspicious keywords
-- **Multi-turn Conversations**: Handles back-and-forth dialogue with scammers
-- **GUVI Callback**: Automatically sends extracted intelligence to GUVI evaluation endpoint
-- **Testing Endpoints**: Comprehensive test endpoints for development and debugging
-
-## 🏗️ Tech Stack
+## Tech Stack
 
 | Component | Technology |
-|-----------|------------|
-| Backend | FastAPI (Python) |
-| LLM | Claude Sonnet 4 (Anthropic) |
-| Storage | In-memory (dict-based) |
-| Deployment | Render.com (free tier) |
+|-----------|-----------|
+| **Framework** | FastAPI (Python 3.12) |
+| **LLM** | Anthropic Claude Sonnet 4 |
+| **Scam Detection** | Rule-based pattern matching + keyword analysis |
+| **Intelligence Extraction** | Regex-based NLP entity extraction |
+| **Session Management** | In-memory thread-safe storage |
+| **Deployment** | Render (Web Service) |
 
-## 📁 Project Structure
+### Key Libraries
+- `fastapi` — REST API framework with async support
+- `anthropic` — Claude AI SDK for conversation generation
+- `pydantic` — Data validation and schema models
+- `uvicorn` — ASGI server
+- `python-dotenv` — Environment variable management
+- `requests` — HTTP client for callback submission
+
+## Architecture
 
 ```
-honeypot-api/
-├── main.py                 # FastAPI application
-├── agent/
-│   ├── scam_detector.py    # Scam detection logic
-│   ├── honeypot_agent.py   # AI agent using Claude
-│   └── intelligence.py     # Intelligence extraction
-├── models/
-│   └── schemas.py          # Pydantic models
-├── services/
-│   ├── session_manager.py  # Session handling
-│   └── callback_service.py # GUVI callback
-├── requirements.txt
-├── render.yaml             # Render deployment config
-└── .env.example
+┌─────────────────────────────────────────────────┐
+│              Incoming Scam Message               │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│           FastAPI REST Endpoint                  │
+│           POST /api/message                      │
+│           (x-api-key authentication)             │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│          Scam Detection Module                   │
+│   - 15+ category-specific pattern matching       │
+│   - Keyword analysis with confidence scoring     │
+│   - Conversation history context boost           │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│          Claude AI Honeypot Agent                │
+│   - Naive victim persona ("Ramesh")              │
+│   - Category-specific conversation tactics       │
+│   - Red flag identification                      │
+│   - Active information elicitation               │
+│   - Investigative questioning strategy           │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│       Intelligence Extraction Engine             │
+│   - Phone numbers, bank accounts, UPI IDs        │
+│   - Phishing links, email addresses              │
+│   - Case IDs, policy numbers, order numbers      │
+│   - Suspicious keyword identification            │
+└────────────────────┬────────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────────┐
+│          Session Manager + Callback              │
+│   - Thread-safe session tracking                 │
+│   - Engagement duration calculation              │
+│   - Final result callback to GUVI endpoint       │
+└─────────────────────────────────────────────────┘
 ```
 
-## 🚀 Quick Start
+## Setup Instructions
 
-### 1. Clone and Setup
-
+### 1. Clone the repository
 ```bash
-cd honeypot-api
-python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux/Mac
+git clone https://github.com/sharmaachintya/Agentic-Honeypot.git
+cd Agentic-Honeypot
+```
+
+### 2. Install dependencies
+```bash
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment
-
+### 3. Set environment variables
 ```bash
 cp .env.example .env
 # Edit .env and add your keys:
-# ANTHROPIC_API_KEY=your-anthropic-key
-# API_SECRET_KEY=your-secret-key
+# ANTHROPIC_API_KEY=sk-ant-api03-xxxxx
+# API_SECRET_KEY=your-chosen-api-key
 ```
 
-### 3. Run Locally
-
+### 4. Run the application
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### 4. Test the API
+### 5. Test the API
+```bash
+# Health check
+curl http://localhost:8000/health
 
-Open http://localhost:8000/docs for Swagger UI
+# Interactive docs
+open http://localhost:8000/docs
 
-## 📡 API Endpoints
-
-### Main Endpoint
-
-```
-POST /api/message
-Header: x-api-key: YOUR_SECRET_KEY
-Content-Type: application/json
-```
-
-**Request Body:**
-```json
-{
-  "sessionId": "unique-session-id",
-  "message": {
-    "sender": "scammer",
-    "text": "Your bank account will be blocked today. Verify immediately.",
-    "timestamp": "2026-01-21T10:15:30Z"
-  },
-  "conversationHistory": [],
-  "metadata": {
-    "channel": "SMS",
-    "language": "English",
-    "locale": "IN"
-  }
-}
+# Test scam detection
+curl -X POST http://localhost:8000/test/detect-scam \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Your bank account will be blocked. Verify now!"}'
 ```
 
-**Response:**
-```json
-{
-  "status": "success",
-  "reply": "What? My account blocked? But why? I didn't do anything wrong."
-}
-```
+## API Endpoints
 
-### Testing Endpoints (No API Key Required)
+### Main Endpoint (Evaluation)
+- **URL:** `POST /api/message`
+- **Authentication:** `x-api-key` header
+- **Input:** Scam message with session context
+- **Output:** `{"status": "success", "reply": "Agent response"}`
 
+### Testing Endpoints (No auth required)
 | Endpoint | Method | Description |
 |----------|--------|-------------|
+| `/health` | GET | Health check |
 | `/test/detect-scam` | POST | Test scam detection |
-| `/test/extract-intelligence` | POST | Test intelligence extraction |
-| `/test/agent-response` | POST | Test agent response |
-| `/test/session/{id}` | GET | Get session info |
+| `/test/extract-intelligence` | POST | Test entity extraction |
+| `/test/agent-response` | POST | Test agent reply |
+| `/test/simulate-conversation` | POST | Full conversation simulation |
+| `/test/session/{id}` | GET | View session details |
 | `/test/sessions` | GET | List all sessions |
-| `/test/simulate-conversation` | POST | Simulate full conversation |
-| `/test/send-callback/{id}` | POST | Manually trigger GUVI callback |
 
-### Health Check
+## Approach
+
+### Scam Detection Strategy
+- **Pattern-based detection** with compiled regex for 15+ scam categories:
+  Bank Fraud, UPI Fraud, Phishing, KYC Fraud, Job Scam, Lottery Scam, Electricity Bill, Govt Scheme, Crypto Investment, Customs Parcel, Tech Support, Loan Approval, Income Tax, Refund Scam, Insurance
+- **Multi-layer confidence scoring** combining urgency, threat, financial, impersonation, and phishing signals
+- **Conversation history analysis** for context-boosted detection across turns
+- Low detection threshold (0.25) to minimize false negatives
+
+### Intelligence Extraction
+- **Regex-based entity extraction** for: phone numbers (Indian format), bank accounts (9-18 digits), UPI IDs, URLs, email addresses, IFSC codes
+- **ID extraction** for: case/reference IDs, policy numbers, order/transaction numbers
+- **Full conversation scanning** — re-extracts from entire history each turn to catch all intelligence
+- **Deduplication** using set-based merging
+
+### Engagement Strategy (Conversation Quality)
+The AI agent uses Claude with a carefully crafted persona prompt:
+- **Naive victim persona** ("Ramesh", middle-aged shopkeeper) — believable and engaging
+- **Investigative questioning** — asks about identity, credentials, company details
+- **Red flag identification** — references urgency, suspicious fees, unofficial channels
+- **Information elicitation** — actively probes for scammer contact details
+- **Category-specific tactics** — tailored conversation strategies per scam type
+- **Delayed compliance** — keeps conversation going by stalling and asking questions
+- Responses always end with a question to maintain engagement
+
+### Callback & Scoring Compliance
+- Sends final output with ALL required + optional scored fields
+- `scamType` and `confidenceLevel` included for bonus points
+- `engagementMetrics` with duration and message count
+- Callback sent on every turn after threshold (handles 10-second window)
+
+## Project Structure
 
 ```
-GET /health
+honeypot-api/
+├── main.py                        # FastAPI app with all endpoints
+├── agent/
+│   ├── __init__.py
+│   ├── scam_detector.py          # Pattern-based scam detection (15+ categories)
+│   ├── honeypot_agent.py         # Claude-powered conversational agent
+│   └── intelligence.py           # Entity extraction (regex + NLP)
+├── models/
+│   ├── __init__.py
+│   └── schemas.py                # Pydantic request/response models
+├── services/
+│   ├── __init__.py
+│   ├── session_manager.py        # Thread-safe session tracking
+│   └── callback_service.py       # GUVI callback with scoring compliance
+├── requirements.txt              # Python dependencies
+├── .env.example                  # Environment variables template
+├── Procfile                      # Render deployment config
+├── render.yaml                   # Render service definition
+└── README.md                     # This file
 ```
 
-## 🧪 Testing Examples
+## Environment Variables
 
-### Test Scam Detection
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `ANTHROPIC_API_KEY` | Yes | Anthropic Claude API key |
+| `API_SECRET_KEY` | Yes | API authentication key |
+| `CLAUDE_MODEL` | No | Claude model (default: claude-sonnet-4-20250514) |
 
-```bash
-curl -X POST "http://localhost:8000/test/detect-scam" \
-  -H "Content-Type: application/json" \
-  -d '{"text": "Your bank account will be blocked. Share OTP immediately."}'
-```
+## Authors
 
-### Test Full Flow
+- **Achintya Sharma** — [GitHub](https://github.com/sharmaachintya)
+- **Sushant Nanda**
 
-```bash
-curl -X POST "http://localhost:8000/api/message" \
-  -H "Content-Type: application/json" \
-  -H "x-api-key: your-secret-api-key-here" \
-  -d '{
-    "sessionId": "test-123",
-    "message": {
-      "sender": "scammer",
-      "text": "Your SBI account will be suspended. Click link to verify: http://sbi-verify.xyz",
-      "timestamp": "2026-01-21T10:15:30Z"
-    },
-    "conversationHistory": [],
-    "metadata": {"channel": "SMS", "language": "English", "locale": "IN"}
-  }'
-```
+## License
 
-### Simulate Multi-turn Conversation
-
-```bash
-curl -X POST "http://localhost:8000/test/simulate-conversation?num_turns=3"
-```
-
-## 🌐 Deployment on Render.com
-
-### 1. Push to GitHub
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin https://github.com/YOUR_USERNAME/honeypot-api.git
-git push -u origin main
-```
-
-### 2. Deploy on Render
-
-1. Go to [render.com](https://render.com) and sign up
-2. Click "New" → "Web Service"
-3. Connect your GitHub repository
-4. Render will auto-detect `render.yaml`
-5. Add Environment Variables:
-   - `ANTHROPIC_API_KEY`: Your Anthropic API key
-   - `API_SECRET_KEY`: Your chosen secret key
-6. Click "Create Web Service"
-
-### 3. Get Your API URL
-
-After deployment, your API will be available at:
-```
-https://honeypot-api.onrender.com
-```
-
-## 📤 GUVI Callback
-
-The system automatically sends intelligence to GUVI after:
-- Scam is detected
-- At least 3 messages exchanged
-- Intelligence is extracted
-
-**Callback Endpoint:** `https://hackathon.guvi.in/api/updateHoneyPotFinalResult`
-
-**Payload Format:**
-```json
-{
-  "sessionId": "abc123-session-id",
-  "scamDetected": true,
-  "totalMessagesExchanged": 18,
-  "extractedIntelligence": {
-    "bankAccounts": ["123456789012"],
-    "upiIds": ["scammer@upi"],
-    "phishingLinks": ["http://malicious.xyz"],
-    "phoneNumbers": ["+919876543210"],
-    "suspiciousKeywords": ["urgent", "blocked", "verify"]
-  },
-  "agentNotes": "Scam type: BANK_FRAUD. Tactics used: urgency tactics, threat tactics."
-}
-```
-
-## 🤖 Agent Persona
-
-The AI agent plays the role of "Ramesh/Priya" - a naive, middle-aged Indian person who:
-- Is not tech-savvy
-- Is worried about their bank account
-- Asks clarifying questions
-- Gradually seems convinced but delays taking action
-- Never reveals detection
-
-## 🔒 Security
-
-- API authentication via `x-api-key` header
-- Environment variables for sensitive data
-- No storage of real user information
-
-## 📋 Evaluation Criteria
-
-1. **Scam Detection Accuracy** - Pattern matching for various scam types
-2. **Agentic Engagement Quality** - Believable, human-like responses
-3. **Intelligence Extraction** - Bank accounts, UPIs, links, phones, keywords
-4. **API Stability** - Error handling, health checks
-5. **Ethical Behavior** - No impersonation, no illegal instructions
-
-## 🛠️ Development
-
-```bash
-# Run with auto-reload
-uvicorn main:app --reload
-
-# Run tests (if added)
-pytest
-
-# Check code style
-flake8 .
-```
-
-## 📝 License
-
-MIT License - Built for HCL GUVI Hackathon 2026
-
-## 👤 Author
-
-Achintya Sharma & Sushant Nanda - HCL GUVI Hackathon Participants
+This project was built for the India AI Impact Buildathon hackathon.
