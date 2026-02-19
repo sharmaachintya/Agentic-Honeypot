@@ -167,23 +167,43 @@ class SessionManager:
         category: str
     ) -> Optional[dict]:
         """
-        Mark session as scam detected
+        Mark session as scam detected.
         
-        Args:
-            session_id: Session identifier
-            detected: Whether scam was detected
-            confidence: Detection confidence score
-            category: Scam category
-            
-        Returns:
-            Updated session or None
+        IMPORTANT: Once a specific category is set (not GENERIC/UNKNOWN),
+        it won't be overridden by a lower-confidence or generic category.
+        Confidence always tracks the MAXIMUM seen.
         """
-        return self.update_session(session_id, {
-            'scam_detected': detected,
-            'scam_confidence': confidence,
-            'scam_category': category,
-            'agent_activated': detected  # Activate agent when scam detected
-        })
+        with self._lock:
+            if session_id not in self._sessions:
+                return None
+            
+            session = self._sessions[session_id]
+            
+            # Always track the highest confidence ever seen
+            current_confidence = session.get('scam_confidence', 0.0)
+            best_confidence = max(current_confidence, confidence)
+            
+            # Lock category: once set to specific type, don't downgrade
+            current_category = session.get('scam_category', 'UNKNOWN')
+            generic_categories = {'UNKNOWN', 'GENERIC_SCAM'}
+            
+            if current_category in generic_categories:
+                # Current is generic → always upgrade to new category
+                new_category = category
+            elif category not in generic_categories and confidence > current_confidence:
+                # Both specific → only upgrade if new has higher confidence
+                new_category = category
+            else:
+                # Keep current specific category
+                new_category = current_category
+            
+            session['scam_detected'] = detected
+            session['scam_confidence'] = best_confidence
+            session['scam_category'] = new_category
+            session['agent_activated'] = detected
+            session['last_updated'] = datetime.utcnow().isoformat()
+            
+            return session
     
     def update_intelligence(
         self,

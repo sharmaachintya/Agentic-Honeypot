@@ -33,20 +33,35 @@ class IntelligenceExtractor:
     """
     
     # Patterns for Case IDs, Policy Numbers, Order Numbers
+    # STRICT patterns to avoid false positives from common English words
     ID_PATTERNS = {
         'case_id': [
-            r'\b(?:case|ref|reference|complaint|ticket|fir)[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
-            r'\b(?:case|ref|reference|complaint|ticket)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
-            r'\b[A-Z]{2,5}[-/]\d{4,12}\b',
+            # Must have prefix + alphanumeric ID with at least one digit
+            r'\b(?:case|complaint|ticket|fir)[\s.:/#-]*(?:no|number|id|ref)?[\s.:/#-]*([A-Z]{0,5}[\-/]?\d{3,15}[A-Za-z0-9-]*)\b',
+            r'\b(?:ref|reference)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Z]{0,5}[\-/]?\d{3,15}[A-Za-z0-9-]*)\b',
+            # Standalone format: PREFIX-DIGITS
+            r'\b([A-Z]{2,5}[-/]\d{4,12})\b',
         ],
         'policy_number': [
-            r'\b(?:policy|polic)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
-            r'\b(?:LIC|HDFC|ICICI|SBI|MAX|TATA)[\s-]?\d{6,15}\b',
+            r'\b(?:policy)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z]{0,5}\d{5,15})\b',
+            r'\b((?:LIC|HDFC|ICICI|SBI|MAX|TATA)[\s-]?\d{6,15})\b',
         ],
         'order_number': [
-            r'\b(?:order|ord|transaction|txn|invoice)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z0-9-]{4,20})\b',
-            r'\b(?:ORD|TXN|INV|AMZ|FLK)[-]?\d{4,15}\b',
+            r'\b(?:order|transaction|txn|invoice)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z]{0,5}\d{4,15})\b',
+            r'\b((?:ORD|TXN|INV|AMZ|FLK)[-]?\d{4,15})\b',
         ],
+    }
+    
+    # Words to filter out from ID extraction (common English words that match patterns)
+    ID_BLACKLIST = {
+        'erence', 'number', 'reference', 'umber', 'order', 'case', 'ticket',
+        'complaint', 'invoice', 'policy', 'olicy', 'transaction', 'rence',
+        'ation', 'umber', 'that', 'this', 'what', 'here', 'there', 'from',
+    }
+    
+    # Agent-generated dummy data to filter out
+    AGENT_DUMMY_DATA = {
+        'ramesh1975@okaxis', 'name@sbi', 'name@bank', '3201xxxxxxxx45',
     }
     
     # Regex patterns for extraction
@@ -59,8 +74,12 @@ class IntelligenceExtractor:
         
         # UPI ID patterns (username@provider)
         'upi_id': [
-            r'\b[\w.-]+@(?:upi|ybl|okaxis|okicici|okhdfcbank|oksbi|paytm|apl|axisb|icici|sbi|hdfcbank|ibl|axl|fbl|indus|kotak|federal|rbl|citi|boi|pnb|bob|canara|uboi|idbi|union|scb|dbs|hsbc|cub|kvb|tmb|dcb|csb|karb|jkb|bandhan|idfc|yes|fino|payzapp|slice|jupiter|fi|cred|gpay|phonepe|amazonpay|whatsapp)\b',
-            r'\b[\w.-]+@[\w]+\b(?=.*(?:upi|payment|pay|transfer))',
+            # Known UPI providers
+            r'\b[\w.-]+@(?:upi|ybl|okaxis|okicici|okhdfcbank|oksbi|paytm|apl|axisb|icici|sbi|hdfcbank|ibl|axl|fbl|indus|kotak|federal|rbl|citi|boi|pnb|bob|canara|uboi|idbi|union|scb|dbs|hsbc|cub|kvb|tmb|dcb|csb|karb|jkb|bandhan|idfc|yes|fino|payzapp|slice|jupiter|fi|cred|gpay|phonepe|amazonpay|whatsapp|fakebank|fakeupi|fake)\b',
+            # Any user@provider pattern when UPI/payment context exists in text
+            r'(?:(?:upi|vpa|pay\s*to|send\s*to|transfer\s*to)[\s:]*)([\w.-]+@[\w]+)\b',
+            # Broad: any word@word that doesn't look like email (no .com/.in etc)
+            r'\b([\w.-]+@(?:[\w]+bank|[\w]*upi|[\w]*pay))\b',
         ],
         
         # Phone numbers (Indian format)
@@ -201,18 +220,19 @@ class IntelligenceExtractor:
     
     def extract_from_conversation(self, messages: List[Dict]) -> ExtractedData:
         """
-        Extract intelligence from entire conversation
+        Extract intelligence from entire conversation.
+        ONLY extracts from SCAMMER messages to avoid false positives
+        from agent-generated dummy data.
         
         Args:
             messages: List of message dicts with 'text' and 'sender' keys
             
         Returns:
-            Combined ExtractedData from all messages
+            Combined ExtractedData from scammer messages only
         """
         combined = ExtractedData()
         
         for msg in messages:
-            # Get text from message (handle both dict and object)
             if isinstance(msg, dict):
                 text = msg.get('text', '')
                 sender = msg.get('sender', '')
@@ -220,8 +240,11 @@ class IntelligenceExtractor:
                 text = msg.text if hasattr(msg, 'text') else str(msg)
                 sender = str(msg.sender) if hasattr(msg, 'sender') else ''
             
-            # Only extract from scammer messages (more valuable intelligence)
-            # But also check user messages for any leaked info
+            # ONLY extract from SCAMMER messages — skip agent/user responses
+            # This prevents false positives from agent-generated dummy data
+            if str(sender).lower() in ('user', 'agent', 'honeypot', 'bot'):
+                continue
+            
             extracted = self.extract_from_message(text)
             
             # Merge results
@@ -235,6 +258,12 @@ class IntelligenceExtractor:
             combined.case_ids.update(extracted.case_ids)
             combined.policy_numbers.update(extracted.policy_numbers)
             combined.order_numbers.update(extracted.order_numbers)
+        
+        # Filter out agent dummy data and blacklisted IDs
+        combined.upi_ids -= self.AGENT_DUMMY_DATA
+        combined.case_ids -= self.ID_BLACKLIST
+        combined.policy_numbers -= self.ID_BLACKLIST
+        combined.order_numbers -= self.ID_BLACKLIST
         
         return combined
     
