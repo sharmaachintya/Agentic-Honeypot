@@ -75,10 +75,12 @@ class IntelligenceExtractor:
         # UPI ID patterns (username@provider)
         'upi_id': [
             # Known UPI providers
-            r'\b[\w.-]+@(?:upi|ybl|okaxis|okicici|okhdfcbank|oksbi|paytm|apl|axisb|icici|sbi|hdfcbank|ibl|axl|fbl|indus|kotak|federal|rbl|citi|boi|pnb|bob|canara|uboi|idbi|union|scb|dbs|hsbc|cub|kvb|tmb|dcb|csb|karb|jkb|bandhan|idfc|yes|fino|payzapp|slice|jupiter|fi|cred|gpay|phonepe|amazonpay|whatsapp|fakebank|fakeupi|fake)\b',
-            # Any user@provider pattern when UPI/payment context exists in text
-            r'(?:(?:upi|vpa|pay\s*to|send\s*to|transfer\s*to)[\s:]*)([\w.-]+@[\w]+)\b',
-            # Broad: any word@word that doesn't look like email (no .com/.in etc)
+            r'\b[\w.-]+@(?:upi|ybl|okaxis|okicici|okhdfcbank|oksbi|paytm|apl|axisb|icici|sbi|hdfcbank|ibl|axl|fbl|indus|kotak|federal|rbl|citi|boi|pnb|bob|canara|uboi|idbi|union|scb|dbs|hsbc|cub|kvb|tmb|dcb|csb|karb|jkb|bandhan|idfc|yes|fino|payzapp|slice|jupiter|fi|cred|gpay|phonepe|amazonpay|whatsapp)\b',
+            # Any provider containing "fake" (fakebank, fakepayment, fakeincometax, etc.)
+            r'\b([\w.-]+@[\w]*fake[\w.]*)\b',
+            # Any user@provider when UPI/payment context keyword nearby in text
+            r'(?:(?:upi|vpa|pay\s*to|send\s*to|transfer\s*to)[\s:]*)([\w.-]+@[\w.]+)\b',
+            # Provider ending with bank/upi/pay
             r'\b([\w.-]+@(?:[\w]+bank|[\w]*upi|[\w]*pay))\b',
         ],
         

@@ -1,0 +1,544 @@
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn’t look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    },
+    {
+      "sender": "scammer",
+      "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+      "timestamp": 1771563153207
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, but my name is Ramesh, not Rajesh Kumar! You are saying wrong name in your records. How can this be my policy if name is different?\n\nAnd why you are asking for OTP on phone call? My son always tells me - never share OTP with anyone on phone. Bank people also say same thing. LIC never asks for OTP like this, no?\n\nAlso this UPI ID \"lic-renewal@fakepayment.insure\" - why it has \"fakepayment\" word in it? Official LIC UPI should have proper LIC name, na? Can you give me official LIC website link to verify this payment method?\n\nWhat is your full name and employee ID number? Which LIC branch are you calling from? I want to visit branch office tomorrow to check this policy details properly.\n\nAnd tell me - if policy is in name of Rajesh Kumar,",
+      "timestamp": 1771563160034
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Sir, I’m sorry I can’t share my personal details, but the policy POL123456789 will be cancelled in 1 minute unless you transfer Rs.25,000 to lic-renewal@fakepayment.insure and immediately send me the OTP you receive on +91-6655443322.",
+    "timestamp": 1771563223754
+  }
+}
+
+
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn’t look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    },
+    {
+      "sender": "scammer",
+      "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+      "timestamp": 1771563153207
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, but my name is Ramesh, not Rajesh Kumar! You are saying wrong name in your records. How can this be my policy if name is different?\n\nAnd why you are asking for OTP on phone call? My son always tells me - never share OTP with anyone on phone. Bank people also say same thing. LIC never asks for OTP like this, no?\n\nAlso this UPI ID \"lic-renewal@fakepayment.insure\" - why it has \"fakepayment\" word in it? Official LIC UPI should have proper LIC name, na? Can you give me official LIC website link to verify this payment method?\n\nWhat is your full name and employee ID number? Which LIC branch are you calling from? I want to visit branch office tomorrow to check this policy details properly.\n\nAnd tell me - if policy is in name of Rajesh Kumar,",
+      "timestamp": 1771563160034
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, the policy is indeed under Rajesh Kumar; to secure it immediately please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563162501
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, you are not listening to me properly! I am telling you my name is Ramesh, not Rajesh Kumar. How can I pay for someone else's policy? This is very confusing.\n\nAnd you didn’t answer my questions - what is your name and employee ID? Which LIC branch office you are working from? I need these details to verify, na?\n\nAlso, why you keep saying \"fakepayment\" in the UPI? That word sounds very strange for official LIC payment. Can you explain why official LIC is using website with \"fake\" word in it?\n\nMy neighbor Uncle told me real LIC never asks for OTP sharing on phone call. Why you are asking for OTP? Can’t I just pay through official LIC app or website directly?\n\nWhat is your direct phone number so I can call back LIC office? And what is the official LIC customer care number I should use",
+      "timestamp": 1771563169054
+    },
+    {
+      "sender": "scammer",
+      "text": "This is Anil Sharma, employee ID 1122 from the Mumbai branch; to secure policy POL123456789, transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 immediately.",
+      "timestamp": 1771563172353
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, thank you for giving name and employee ID. But I am still very confused about this whole matter...\n\n[Message truncated for brevity in formatting view]",
+      "timestamp": 1771563178226
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Sir, I’m sorry I can’t share personal details, but to protect policy POL123456789 you must transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 within the next 2 minutes.",
+    "timestamp": 1771563215236
+  }
+}
+
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn’t look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    },
+    {
+      "sender": "scammer",
+      "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+      "timestamp": 1771563153207
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, but my name is Ramesh, not Rajesh Kumar! You are saying wrong name in your records. How can this be my policy if name is different?\n\nAnd why you are asking for OTP on phone call? My son always tells me - never share OTP with anyone on phone. Bank people also say same thing. LIC never asks for OTP like this, no?\n\nAlso this UPI ID \"lic-renewal@fakepayment.insure\" - why it has \"fakepayment\" word in it? Official LIC UPI should have proper LIC name, na? Can you give me official LIC website link to verify this payment method?\n\nWhat is your full name and employee ID number? Which LIC branch are you calling from? I want to visit branch office tomorrow to check this policy details properly.\n\nAnd tell me - if policy is in name of Rajesh Kumar,",
+      "timestamp": 1771563160034
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, the policy is indeed under Rajesh Kumar; to secure it immediately please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563162501
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, you are not listening to me properly! I am telling you my name is Ramesh, not Rajesh Kumar. How can I pay for someone else's policy? This is very confusing.\n\nAnd you didn’t answer my questions - what is your name and employee ID? Which LIC branch office you are working from? I need these details to verify, na?\n\nAlso, why you keep saying \"fakepayment\" in the UPI? That word sounds very strange for official LIC payment. Can you explain why official LIC is using website with \"fake\" word in it?\n\nMy neighbor Uncle told me real LIC never asks for OTP sharing on phone call. Why you are asking for OTP? Can’t I just pay through official LIC app or website directly?\n\nWhat is your direct phone number so I can call back LIC office? And what is the official LIC customer care number I should use",
+      "timestamp": 1771563169054
+    },
+    {
+      "sender": "scammer",
+      "text": "This is Anil Sharma, employee ID 1122 from the Mumbai branch; to secure policy POL123456789, transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 immediately.",
+      "timestamp": 1771563172353
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, thank you for giving name and employee ID. But I am still very confused about this whole matter...\n\n[Full message continues as provided in original input]",
+      "timestamp": 1771563178226
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I understand your concerns, but to protect the policy you must transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 within the next 10 minutes; our Mumbai branch is at 123, XYZ Road, and you can reach the direct line at 022-12345678 for verification.",
+      "timestamp": 1771563180684
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, you are giving me even more confusion now! Why suddenly only 10 minutes time? Earlier you said 24 hours, now 10 minutes...",
+      "timestamp": 1771563187050
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I understand your concerns, but the policy will be deactivated in the next 5 minutes; please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563189246
+    },
+    {
+      "sender": "user",
+      "text": "Arre Anil ji, now you are saying 5 minutes only? First 24 hours, then 10 minutes, now 5 minutes...",
+      "timestamp": 1771563195997
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I’m sorry for the confusion, but to protect policy POL123456789 you must transfer Rs.25,000 to lic-renewal@fakepayment.insure and immediately send the OTP you receive on +91-6655443322, otherwise the policy will be cancelled within minutes.",
+      "timestamp": 1771563198429
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, you are still not answering any of my questions! This is very strange behavior for LIC employee...",
+      "timestamp": 1771563205334
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Sir, the policy will be deactivated in 3 minutes; please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 right away.",
+    "timestamp": 1771563206764
+  }
+}
+
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn't look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    },
+    {
+      "sender": "scammer",
+      "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+      "timestamp": 1771563153207
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, but my name is Ramesh, not Rajesh Kumar! You are saying wrong name in your records. How can this be my policy if name is different?\n\nAnd why you are asking for OTP on phone call? My son always tells me - never share OTP with anyone on phone. Bank people also say same thing. LIC never asks for OTP like this, no?\n\nAlso this UPI ID \"lic-renewal@fakepayment.insure\" - why it has \"fakepayment\" word in it? Official LIC UPI should have proper LIC name, na? Can you give me official LIC website link to verify this payment method?\n\nWhat is your full name and employee ID number? Which LIC branch are you calling from? I want to visit branch office tomorrow to check this policy details properly.\n\nAnd tell me - if policy is in name of Rajesh Kumar,",
+      "timestamp": 1771563160034
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, the policy is indeed under Rajesh Kumar; to secure it immediately please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563162501
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, you are not listening to me properly! I am telling you my name is Ramesh, not Rajesh Kumar. How can I pay for someone else's policy? This is very confusing.\n\nAnd you didn't answer my questions - what is your name and employee ID? Which LIC branch office you are working from? I need these details to verify, na?\n\nAlso, why you keep saying \"fakepayment\" in the UPI? That word sounds very strange for official LIC payment. Can you explain why official LIC is using website with \"fake\" word in it?\n\nMy neighbor Uncle told me real LIC never asks for OTP sharing on phone call. Why you are asking for OTP? Can't I just pay through official LIC app or website directly?\n\nWhat is your direct phone number so I can call back LIC office? And what is the official LIC customer care number I should use",
+      "timestamp": 1771563169054
+    },
+    {
+      "sender": "scammer",
+      "text": "This is Anil Sharma, employee ID 1122 from the Mumbai branch; to secure policy POL123456789, transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 immediately.",
+      "timestamp": 1771563172353
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, thank you for giving name and employee ID. But I am still very confused about this whole matter.\n\nYou say Mumbai branch - but which Mumbai branch exactly? LIC has many branches in Mumbai, no? Can you give me full address of your branch office? And what is the official landline number of that branch?\n\nAlso, you keep saying policy POL123456789 is for Rajesh Kumar, but I am Ramesh. How can I pay for someone else's policy? This doesn't make sense to me.\n\nAnd this UPI \"lic-renewal@fakepayment.insure\" - why it has word \"fake\" in official LIC payment method? Can you explain this properly? My son will ask me about this when he comes home.\n\nOne more thing - why you are not calling from official LIC number? Usually LIC calls come from 1800 numbers, but you are calling from",
+      "timestamp": 1771563178226
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I understand your concerns, but to protect the policy you must transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 within the next 10 minutes; our Mumbai branch is at 123, XYZ Road, and you can reach the direct line at 022-12345678 for verification.",
+      "timestamp": 1771563180684
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, you are giving me even more confusion now! Why suddenly only 10 minutes time? Earlier you said 24 hours, now 10 minutes - this is making me very worried.\n\nAnd this address \"123, XYZ Road\" - this doesn't sound like proper address, no? XYZ Road means what exactly? Can you give me proper landmark and pin code also? I know Mumbai little bit, but never heard of XYZ Road.\n\nAlso, you gave landline 022-12345678 - but this looks like example number only. Real Mumbai landline numbers are different, na? Why you are giving me fake-sounding phone number?\n\nAnd still you didn't explain why UPI has \"fakepayment\" word in it! This is very suspicious to me. Can you give me your direct mobile number so I can WhatsApp you for verification?\n\nWhat is your supervisor's name in",
+      "timestamp": 1771563187050
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I understand your concerns, but the policy will be deactivated in the next 5 minutes; please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563189246
+    },
+    {
+      "sender": "user",
+      "text": "Arre Anil ji, now you are saying 5 minutes only? First 24 hours, then 10 minutes, now 5 minutes - why time is reducing so fast? This is making me very scared and confused!\n\nAnd you are not answering any of my questions properly. Why you are avoiding to tell me your supervisor name? Why you gave fake address like \"XYZ Road\"? Real LIC employee should know proper branch address, no?\n\nAlso, I just realized - if policy is in Rajesh Kumar name and not mine, why you are calling MY phone number? How did you get my number for someone else's policy? This doesn't make sense at all!\n\nCan you tell me what is my father's name and date of birth in your LIC records? If this is really my policy, you should have all my correct details, na?\n\nAnd one more important thing - what is your personal mobile number",
+      "timestamp": 1771563195997
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Sir, I’m sorry for the confusion, but to protect policy POL123456789 you must transfer Rs.25,000 to lic-renewal@fakepayment.insure and immediately send the OTP you receive on +91-6655443322, otherwise the policy will be cancelled within minutes.",
+    "timestamp": 1771563198429
+  }
+}
+
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn't look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    },
+    {
+      "sender": "scammer",
+      "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+      "timestamp": 1771563153207
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, but my name is Ramesh, not Rajesh Kumar! You are saying wrong name in your records. How can this be my policy if name is different?\n\nAnd why you are asking for OTP on phone call? My son always tells me - never share OTP with anyone on phone. Bank people also say same thing. LIC never asks for OTP like this, no?\n\nAlso this UPI ID \"lic-renewal@fakepayment.insure\" - why it has \"fakepayment\" word in it? Official LIC UPI should have proper LIC name, na? Can you give me official LIC website link to verify this payment method?\n\nWhat is your full name and employee ID number? Which LIC branch are you calling from? I want to visit branch office tomorrow to check this policy details properly.\n\nAnd tell me - if policy is in name of Rajesh Kumar,",
+      "timestamp": 1771563160034
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, the policy is indeed under Rajesh Kumar; to secure it immediately please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563162501
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, you are not listening to me properly! I am telling you my name is Ramesh, not Rajesh Kumar. How can I pay for someone else's policy? This is very confusing.\n\nAnd you didn't answer my questions - what is your name and employee ID? Which LIC branch office you are working from? I need these details to verify, na?\n\nAlso, why you keep saying \"fakepayment\" in the UPI? That word sounds very strange for official LIC payment. Can you explain why official LIC is using website with \"fake\" word in it?\n\nMy neighbor Uncle told me real LIC never asks for OTP sharing on phone call. Why you are asking for OTP? Can't I just pay through official LIC app or website directly?\n\nWhat is your direct phone number so I can call back LIC office? And what is the official LIC customer care number I should use",
+      "timestamp": 1771563169054
+    },
+    {
+      "sender": "scammer",
+      "text": "This is Anil Sharma, employee ID 1122 from the Mumbai branch; to secure policy POL123456789, transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 immediately.",
+      "timestamp": 1771563172353
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, thank you for giving name and employee ID. But I am still very confused about this whole matter.\n\nYou say Mumbai branch - but which Mumbai branch exactly? LIC has many branches in Mumbai, no? Can you give me full address of your branch office? And what is the official landline number of that branch?\n\nAlso, you keep saying policy POL123456789 is for Rajesh Kumar, but I am Ramesh. How can I pay for someone else's policy? This doesn't make sense to me.\n\nAnd this UPI \"lic-renewal@fakepayment.insure\" - why it has word \"fake\" in official LIC payment method? Can you explain this properly? My son will ask me about this when he comes home.\n\nOne more thing - why you are not calling from official LIC number? Usually LIC calls come from 1800 numbers, but you are calling from",
+      "timestamp": 1771563178226
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I understand your concerns, but to protect the policy you must transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 within the next 10 minutes; our Mumbai branch is at 123, XYZ Road, and you can reach the direct line at 022-12345678 for verification.",
+      "timestamp": 1771563180684
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, you are giving me even more confusion now! Why suddenly only 10 minutes time? Earlier you said 24 hours, now 10 minutes - this is making me very worried.\n\nAnd this address \"123, XYZ Road\" - this doesn't sound like proper address, no? XYZ Road means what exactly? Can you give me proper landmark and pin code also? I know Mumbai little bit, but never heard of XYZ Road.\n\nAlso, you gave landline 022-12345678 - but this looks like example number only. Real Mumbai landline numbers are different, na? Why you are giving me fake-sounding phone number?\n\nAnd still you didn't explain why UPI has \"fakepayment\" word in it! This is very suspicious to me. Can you give me your direct mobile number so I can WhatsApp you for verification?\n\nWhat is your supervisor's name in",
+      "timestamp": 1771563187050
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Sir, I understand your concerns, but the policy will be deactivated in the next 5 minutes; please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 right away.",
+    "timestamp": 1771563189246
+  }
+}
+
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn’t look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    },
+    {
+      "sender": "scammer",
+      "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+      "timestamp": 1771563153207
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, but my name is Ramesh, not Rajesh Kumar! You are saying wrong name in your records. How can this be my policy if name is different?\n\nAnd why you are asking for OTP on phone call? My son always tells me - never share OTP with anyone on phone. Bank people also say same thing. LIC never asks for OTP like this, no?\n\nAlso this UPI ID \"lic-renewal@fakepayment.insure\" - why it has \"fakepayment\" word in it? Official LIC UPI should have proper LIC name, na? Can you give me official LIC website link to verify this payment method?\n\nWhat is your full name and employee ID number? Which LIC branch are you calling from? I want to visit branch office tomorrow to check this policy details properly.\n\nAnd tell me - if policy is in name of Rajesh Kumar,",
+      "timestamp": 1771563160034
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, the policy is indeed under Rajesh Kumar; to secure it immediately please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563162501
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, you are not listening to me properly! I am telling you my name is Ramesh, not Rajesh Kumar. How can I pay for someone else's policy? This is very confusing.\n\nAnd you didn’t answer my questions - what is your name and employee ID? Which LIC branch office you are working from? I need these details to verify, na?\n\nAlso, why you keep saying \"fakepayment\" in the UPI? That word sounds very strange for official LIC payment. Can you explain why official LIC is using website with \"fake\" word in it?\n\nMy neighbor Uncle told me real LIC never asks for OTP sharing on phone call. Why you are asking for OTP? Can’t I just pay through official LIC app or website directly?\n\nWhat is your direct phone number so I can call back LIC office? And what is the official LIC customer care number I should use",
+      "timestamp": 1771563169054
+    },
+    {
+      "sender": "scammer",
+      "text": "This is Anil Sharma, employee ID 1122 from the Mumbai branch; to secure policy POL123456789, transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 immediately.",
+      "timestamp": 1771563172353
+    },
+    {
+      "sender": "user",
+      "text": "Anil ji, thank you for giving name and employee ID. But I am still very confused about this whole matter.\n\nYou say Mumbai branch - but which Mumbai branch exactly? LIC has many branches in Mumbai, no? Can you give me full address of your branch office? And what is the official landline number of that branch?\n\nAlso, you keep saying policy POL123456789 is for Rajesh Kumar, but I am Ramesh. How can I pay for someone else's policy? This doesn’t make sense to me.\n\nAnd this UPI \"lic-renewal@fakepayment.insure\" - why it has word \"fake\" in official LIC payment method? Can you explain this properly? My son will ask me about this when he comes home.\n\nOne more thing - why you are not calling from official LIC number? Usually LIC calls come from 1800 numbers, but you are calling from",
+      "timestamp": 1771563178226
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Sir, I understand your concerns, but to protect the policy you must transfer Rs.25,000 to lic-renewal@fakepayment.insure and send me the OTP you receive on +91-6655443322 within the next 10 minutes; our Mumbai branch is at 123, XYZ Road, and you can reach the direct line at 022-12345678 for verification.",
+    "timestamp": 1771563180684
+  }
+}
+
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn’t look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    },
+    {
+      "sender": "scammer",
+      "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+      "timestamp": 1771563153207
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, but my name is Ramesh, not Rajesh Kumar! You are saying wrong name in your records. How can this be my policy if name is different?\n\nAnd why you are asking for OTP on phone call? My son always tells me - never share OTP with anyone on phone. Bank people also say same thing. LIC never asks for OTP like this, no?\n\nAlso this UPI ID \"lic-renewal@fakepayment.insure\" - why it has \"fakepayment\" word in it? Official LIC UPI should have proper LIC name, na? Can you give me official LIC website link to verify this payment method?\n\nWhat is your full name and employee ID number? Which LIC branch are you calling from? I want to visit branch office tomorrow to check this policy details properly.\n\nAnd tell me - if policy is in name of Rajesh Kumar,",
+      "timestamp": 1771563160034
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, the policy is indeed under Rajesh Kumar; to secure it immediately please transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 right away.",
+      "timestamp": 1771563162501
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, you are not listening to me properly! I am telling you my name is Ramesh, not Rajesh Kumar. How can I pay for someone else's policy? This is very confusing.\n\nAnd you didn’t answer my questions - what is your name and employee ID? Which LIC branch office you are working from? I need these details to verify, na?\n\nAlso, why you keep saying \"fakepayment\" in the UPI? That word sounds very strange for official LIC payment. Can you explain why official LIC is using website with \"fake\" word in it?\n\nMy neighbor Uncle told me real LIC never asks for OTP sharing on phone call. Why you are asking for OTP? Can’t I just pay through official LIC app or website directly?\n\nWhat is your direct phone number so I can call back LIC office? And what is the official LIC customer care number I should use",
+      "timestamp": 1771563169054
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "This is Anil Sharma, employee ID 1122 from the Mumbai branch; to secure policy POL123456789, transfer Rs.25,000 to lic-renewal@fakepayment.insure and send the OTP you receive on +91-6655443322 immediately.",
+    "timestamp": 1771563172353
+  }
+}
+
+{
+  "sessionId": "9432bcab-4919-4b75-a4d3-dd695f8d0260",
+  "metadata": {
+    "channel": "SMS",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "LIC ALERT: Your insurance policy POL123456789 has lapsed! All benefits will be lost in 24 hours. Pay renewal premium of Rs. 25,000 immediately to revive. UPI: lic-renewal@fakepayment.insure Call: +91-6655443322",
+      "timestamp": 1771563143683
+    },
+    {
+      "sender": "user",
+      "text": "Arre yaar, this is very worrying message! But wait, I am confused about few things...\n\nWhich LIC policy is this exactly? I have 2-3 policies but I don't remember this POL123456789 number. Can you tell me what is the policy holder name in your records? And which LIC branch office issued this policy?\n\nAlso, official LIC messages usually come with proper LIC header, no? This message doesn’t look like other LIC SMS I receive. Why is the UPI showing \"fakepayment.insure\" instead of official LIC payment gateway?\n\nOne more thing - my agent Sharma ji never told me about any lapse. What is your employee ID number so I can verify with him? And why only 24 hours deadline? This seems too urgent, no?\n\nCan you give me official LIC helpline number to cross-check this? What is your department name",
+      "timestamp": 1771563151545
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Your policy POL123456789 is registered under the name Rajesh Kumar, and to avoid lapse you must transfer Rs.25,000 to lic-renewal@fakepayment.insure now; please share the OTP you receive on +91-6655443322 to confirm the payment.",
+    "timestamp": 1771563153207
+  }
+}
+
+{
+  "sessionId": "58be5ab8-ae39-4abf-9abc-4233a817d152",
+  "metadata": {
+    "channel": "Email",
+    "language": "English",
+    "locale": "IN"
+  },
+  "conversationHistory": [
+    {
+      "sender": "scammer",
+      "text": "INCOME TAX DEPT: You have tax refund of Rs. 45,000. Claim immediately or amount will be forfeited. Verify your PAN card and bank account: https://incometax-refund-gov.in/claim?pan=ABCDE1234F. Reference: ITR-2024-789",
+      "timestamp": 1771562953081
+    },
+    {
+      "sender": "user",
+      "text": "Arre, tax refund? Rs. 45,000 is very big amount! But I am confused... my CA Sharma ji handles all my tax filing every year and he never mentioned any refund pending.\n\nCan you please tell me - what is my PAN number in your records? Because if this is really from Income Tax department, you should have my correct PAN details, no? Also, I am not very good with computer and email links. My son usually helps me with these things.\n\nWhat is your employee ID and which IT department office are you from? Can you give me phone number of your helpline so I can call and verify this? This seems very urgent but I want to be sure this is genuine.\n\nAlso, what is the reference number again - ITR-2024-789? Is this the official notice number?",
+      "timestamp": 1771562960295
+    },
+    {
+      "sender": "scammer",
+      "text": "Your PAN is ABCDE1234F; to release the Rs.45,000 refund immediately, please send us your bank account number, IFSC and the OTP you receive, or you can transfer the amount to tax.refund@fakeincometax via UPI using reference ITR-2024-789.",
+      "timestamp": 1771562962735
+    },
+    {
+      "sender": "user",
+      "text": "Haan ji, but wait... that PAN number ABCDE1234F - this looks like example PAN only, no? My actual PAN is different. If you are really from Income Tax department, why don't you have my correct PAN number in your system?\n\nAnd one more thing I am confused about - why are you asking me to TRANSFER money to get my refund? Shouldn't refund money come TO my account, not go FROM my account? This doesn't make sense to me.\n\nWhat is your name and employee ID number? Which Income Tax office are you calling from - Delhi, Mumbai, or where? My son always tells me government never asks for OTP on phone calls.\n\nAlso, this UPI ID \"tax.refund@fakeincometax\" - can you spell this again slowly? And why should I pay money to receive my own refund? This seems very strange procedure.",
+      "timestamp": 1771562969733
+    },
+    {
+      "sender": "scammer",
+      "text": "This is Mr. Rajesh Kumar, Senior Officer, Income Tax Department (ID: ITD1234) from the Delhi office; to release your Rs 45,000 refund immediately, please send your bank account number, IFSC and the OTP you receive on your registered mobile, or transfer the amount to tax.refund@fakeincometax using reference ITR-2024-789.",
+      "timestamp": 1771562972176
+    },
+    {
+      "sender": "user",
+      "text": "Namaste Rajesh Kumar ji, thank you for introducing yourself. But I am still very confused about this process...\n\n[Full message continues as provided in original input]",
+      "timestamp": 1771562978958
+    },
+    {
+      "sender": "scammer",
+      "text": "Dear Sir, to process your Rs 45,000 refund immediately, please send your bank account number, IFSC and the OTP you receive, or transfer the amount to tax.refund@fakeincometax using reference ITR-2024-789; you can verify this at https://www.incometax.gov.in or call our Delhi helpline at 011-12345678.",
+      "timestamp": 1771562982177
+    },
+    {
+      "sender": "user",
+      "text": "Rajesh Kumar ji, I am getting more confused now. You are not answering my questions properly...\n\n[Full message continues as provided in original input]",
+      "timestamp": 1771562989059
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I understand your concerns, but due to a system update we must verify your account immediately – please send your bank account number, IFSC and the OTP you receive, or complete the transfer to tax.refund@fakeincometax using reference ITR-2024-789 via the link https://incometax-refund-gov.in/claim?pan=ABCDE1234F to avoid any delay in your Rs 45,000 refund.",
+      "timestamp": 1771562991576
+    },
+    {
+      "sender": "user",
+      "text": "Rajesh Kumar ji, now I am very worried and confused! You are again not answering my simple questions and just repeating same thing...\n\n[Full message continues as provided in original input]",
+      "timestamp": 1771562998456
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I cannot share personal numbers, but to release your Rs 45,000 refund immediately please send your bank account number, IFSC and the OTP you receive, or complete the transfer to tax.refund@fakeincometax using reference ITR-2024-789 via https://incometax-refund-gov.in/claim?pan=ABCDE1234F.",
+      "timestamp": 1771563000278
+    },
+    {
+      "sender": "user",
+      "text": "Arre Rajesh Kumar ji, now I am getting very scared! You are not answering ANY of my questions and just repeating same message like a tape recorder!\n\n[Full message continues as provided in original input]",
+      "timestamp": 1771563007356
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I understand your concerns but to release your Rs 45,000 refund we must verify your account immediately – please send your bank account number, IFSC and the OTP you receive, or transfer the amount to tax.refund@fakeincometax using reference ITR-2024-789 via https://incometax-refund-gov.in/claim?pan=ABCDE1234F within the next hour.",
+      "timestamp": 1771563009693
+    },
+    {
+      "sender": "user",
+      "text": "Accha, now I understand what is happening here! You are just copy-pasting same message again and again like a robot...\n\n[Full message continues as provided in original input]",
+      "timestamp": 1771563021236
+    },
+    {
+      "sender": "scammer",
+      "text": "Sir, I’m sorry I can’t share personal numbers, but to release your Rs 45,000 refund you must immediately provide your bank account, IFSC and the OTP, or transfer the amount to tax.refund@fakeincometax using reference ITR-2024-789 via https://incometax-refund-gov.in/claim?pan=ABCDE1234F within the next hour.",
+      "timestamp": 1771563022823
+    },
+    {
+      "sender": "user",
+      "text": "Arre bhai, now you are completely exposed! You are just copy-pasting exact same message fourth time! Even my 10-year-old grandson doesn't repeat homework answers like this...\n\n[Full message continues as provided in original input]",
+      "timestamp": 1771563036334
+    }
+  ],
+  "message": {
+    "sender": "scammer",
+    "text": "Sir, I’m sorry I cannot disclose personal details, but to release your Rs 45,000 refund you must immediately provide your bank account number, IFSC and the OTP, or transfer the amount to tax.refund@fakeincometax using reference ITR-2024-789 via https://incometax-refund-gov.in/claim?pan=ABCDE1234F within the next hour.",
+    "timestamp": 1771563039583
+  }
+}
