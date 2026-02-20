@@ -49,6 +49,9 @@ class IntelligenceExtractor:
         'order_number': [
             r'\b(?:order|transaction|txn|invoice)[\s.:/#-]*(?:no|number|id)?[\s.:/#-]*([A-Za-z]{0,5}\d{4,15})\b',
             r'\b((?:ORD|TXN|INV|AMZ|FLK)[-]?\d{4,15})\b',
+            # Order with # prefix: #405-789456789 or #AMZ-12345
+            r'#\s*(\d{1,5}[-/]\d{4,15})\b',
+            r'#\s*([A-Za-z]{1,5}[-/]?\d{4,15})\b',
         ],
     }
     
@@ -84,12 +87,14 @@ class IntelligenceExtractor:
             r'\b([\w.-]+@(?:[\w]+bank|[\w]*upi|[\w]*pay))\b',
         ],
         
-        # Phone numbers (Indian format)
+        # Phone numbers (Indian format - mobile + landline)
         'phone_number': [
             r'\+91[\s-]?\d{10}\b',
             r'\b91[\s-]?\d{10}\b',
             r'\b(?:0)?\d{10}\b',
             r'\b\d{5}[\s-]?\d{5}\b',
+            # Indian landline numbers: 0XX-XXXXXXXX or 0XXX-XXXXXXX
+            r'\b0\d{2,4}[\s-]\d{6,8}\b',
         ],
         
         # URLs and links
@@ -189,7 +194,10 @@ class IntelligenceExtractor:
         for pattern in self.compiled_patterns['url']:
             matches = pattern.findall(text)
             for match in matches:
-                data.phishing_links.add(match)
+                # Strip trailing punctuation that's not part of the URL
+                cleaned_url = match.rstrip('.,;:!?)\'\"')
+                if cleaned_url:
+                    data.phishing_links.add(cleaned_url)
         
         # Extract emails
         for pattern in self.compiled_patterns['email']:
@@ -267,6 +275,46 @@ class IntelligenceExtractor:
         combined.policy_numbers -= self.ID_BLACKLIST
         combined.order_numbers -= self.ID_BLACKLIST
         
+        # Remove UPI IDs from phishing links (cross-contamination fix)
+        # UPI IDs like crypto.invest@fakecryptoplatform can match URL patterns
+        upi_lower = {u.lower() for u in combined.upi_ids}
+        combined.phishing_links = {
+            link for link in combined.phishing_links
+            if link.lower() not in upi_lower and not any(link.lower().rstrip('.,;:') == u for u in upi_lower)
+        }
+        
+        # Remove email addresses from phishing links
+        email_lower = {e.lower() for e in combined.email_addresses}
+        combined.phishing_links = {
+            link for link in combined.phishing_links
+            if link.lower() not in email_lower
+        }
+        
+        # Also remove UPI IDs from email addresses (UPIs with dots can match email regex)
+        # e.g., lic-renewal@fakepayment.insure matches both UPI and email patterns
+        combined.email_addresses -= combined.upi_ids
+        
+        # Remove support@fakefinance.com from UPI IDs - it's an email, not UPI
+        # If something has a proper TLD (.com, .in, .org etc), it's email not UPI
+        email_tlds = {'.com', '.in', '.org', '.net', '.co', '.io', '.gov'}
+        false_upis = set()
+        for upi in combined.upi_ids:
+            provider = upi.split('@')[1] if '@' in upi else ''
+            if any(provider.endswith(tld) for tld in email_tlds):
+                # This is actually an email address, not a UPI
+                combined.email_addresses.add(upi)
+                false_upis.add(upi)
+        combined.upi_ids -= false_upis
+        
+        # Remove numbers that appear in order_numbers/case_ids from bank_accounts (false positive fix)
+        # e.g., order #405-789456789 -> 789456789 should not be a bank account
+        id_numbers = set()
+        for oid in combined.order_numbers | combined.case_ids:
+            # Extract digit sequences from IDs
+            digits = re.findall(r'\d{9,}', oid)
+            id_numbers.update(digits)
+        combined.bank_accounts -= id_numbers
+        
         return combined
     
     def _is_valid_bank_account(self, account: str) -> bool:
@@ -343,15 +391,19 @@ class IntelligenceExtractor:
         if len(digits) == 12 and digits.startswith('91'):
             return '+91' + digits[2:]
         elif len(digits) == 11 and digits.startswith('0'):
+            # Could be landline (0XX-XXXXXXXX) or mobile (0XXXXXXXXXX)
             return '+91' + digits[1:]
         elif len(digits) == 10:
             return '+91' + digits
+        # Landline with STD code (e.g., 01112345678 = 11 digits with 0)
+        elif len(digits) >= 8 and digits.startswith('0'):
+            return digits  # Keep as-is for landlines
         
         return digits
     
     def _is_valid_phone(self, phone: str) -> bool:
         """
-        Validate phone number
+        Validate phone number (mobile or landline)
         
         Args:
             phone: Cleaned phone number
@@ -366,6 +418,15 @@ class IntelligenceExtractor:
             last_10 = digits[-10:]
             if last_10[0] in '6789':
                 return True
+        
+        # Indian landline: starts with 0 followed by 2-4 digit STD code + 6-8 digit number
+        # Total 10-12 digits starting with 0
+        if len(digits) >= 10 and len(digits) <= 12 and digits.startswith('0'):
+            return True
+        
+        # Landline without leading 0 but with +91 prefix (cleaned)
+        if phone.startswith('+91') and len(digits) >= 12:
+            return True
         
         return False
     
